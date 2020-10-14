@@ -6,8 +6,6 @@
     <title>我的快乐源泉</title>
     <meta name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-    <meta name="copyright" content="aHR0cHM6Ly93ZS5kb2c=">
-    <meta name="contact" content="eW5zQHFxLmNvbQ==">
     <meta itemprop="name" content="我的快乐源泉">
     <meta name="description" itemprop="description" content="我的快乐源泉">
     <meta itemprop="image" content="/image/joke.gif">
@@ -15,19 +13,19 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="icon" href="/image/joke.gif" sizes="32x32">
     <style>
-        @font-face {
-            font-family: mfshangya;
-            src: url(/font/JDFSY.TTF) format('truetype');
-            font-weight: 400;
-            font-style: normal
-        }
+        /*@font-face {*/
+        /*    font-family: mfshangya;*/
+        /*    src: url() format('truetype');*/
+        /*    font-weight: 400;*/
+        /*    font-style: normal*/
+        /*}*/
 
-        @font-face {
-            font-family: hytiaotiao;
-            src: url(/font/HYTTJT.ttf) format('truetype');
-            font-weight: 400;
-            font-style: normal
-        }
+        /*@font-face {*/
+        /*    font-family: hytiaotiao;*/
+        /*    src: url(/font/HYTTJT.ttf) format('truetype');*/
+        /*    font-weight: 400;*/
+        /*    font-style: normal*/
+        /*}*/
 
         .border-1 {
             border-bottom-left-radius: 15px 255px;
@@ -128,11 +126,11 @@
         header p {
             font-size: .32rem;
             margin: .08rem 0 0 auto;
-            font-family: hytiaotiao
+            /*font-family: hytiaotiao*/
         }
 
         section {
-            font-family: hytiaotiao;
+            /*font-family: hytiaotiao;*/
             margin: auto .4rem;
             border-width: 2px 5px 4px 3px;
             border-style: solid;
@@ -146,7 +144,7 @@
         }
 
         article img {
-            display: none
+            /*display: none*/
         }
 
         article {
@@ -191,20 +189,38 @@
             margin: .45rem 0 0
         }
 
-        button {
+        .button1 {
             border: 0;
-            margin: 0 .3rem;
+            /*margin: 0 .3rem;*/
             padding: 0;
             background-color: #fff;
             width: 1rem;
             height: 1rem;
-            color: transparent;
-            border-radius: 100%;
-            background-image: url(/image/joke.gif);
-            background-size: cover;
-            background-position: 50%;
-            background-repeat: no-repeat;
+            /*color: transparent;*/
+            border-radius: 100% 0 0 100%;
+            /*background-image: url(/image/joke.gif);*/
+            /*background-size: cover;*/
+            /*background-position: 50%;*/
+            /*background-repeat: no-repeat;*/
             box-shadow: 0 0 .2rem rgba(0, 0, 0, .2);
+            cursor: pointer;
+            outline: 0
+        }
+        .button2 {
+            border: 0;
+            border-left: 1px #8c888842 solid;
+            /*margin: 0 .3rem;*/
+            padding: 0;
+            background-color: #fff;
+            width: 1rem;
+            height: 1rem;
+            /*color: transparent;*/
+            border-radius: 0 100% 100% 0;
+            /*background-image: url(/image/joke.gif);*/
+            /*background-size: cover;*/
+            /*background-position: 50%;*/
+            /*background-repeat: no-repeat;*/
+            box-shadow: .2rem 0 .2rem rgba(0, 0, 0, .2);
             cursor: pointer;
             outline: 0
         }
@@ -288,26 +304,40 @@
     <p>源源不绝的快乐</p></header>
 <section class="border-1">
     <article id="content"></article>
-    <address></address>
+    <address id="top_comments_content"></address>
     <canvas height="926" width="1920" style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 0.5;"
             id="c_n1"></canvas>
 </section>
 <footer>
-    <button title="点击刷新，再来一篇" onclick="randomSoul()">再来一篇</button>
+    <button class="button1" title="点击刷新，再来一篇" onclick="randomSoul('text')">段子</button>
+    <button class="button2" title="点击刷新，再来一篇" onclick="randomSoul('image')">图片</button>
     <tips>已复制</tips>
 </footer>
-<script src="/webjars/jquery/3.4.1/jquery.js"></script>
+<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" color="#94bce7" opacity='0.7' zIndex="-2" count="99" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
 
 <script>
     $(function () {
-        randomSoul();
+        randomSoul('text');
     });
 
-    function randomSoul() {
-        $.get("/joke/getJoke?type=text", function (data, status) {
+    function randomSoul(type) {
+        var url="/joke/getJoke?type=";
+        $.get(url+type, function (data, status) {
             if (status == 'success') {
-                $("#content").html(data.text);
+                //文字内容
+                if(data.type=="text"){
+                    $("#content").html(data.text);
+                    if(data.top_comments_content!=null&&data.top_comments_content!=""){
+                        $("#top_comments_content").html("神评论："+data.top_comments_content);
+                    }
+                }
+                if(data.type=="image"){
+                    $("#content").html("<img src='"+data.images+"'>");
+                    if(data.top_comments_content!=null&&data.top_comments_content!=""){
+                        $("#top_comments_content").html("神评论："+data.top_comments_content);
+                    }
+                }
             }
         });
     }

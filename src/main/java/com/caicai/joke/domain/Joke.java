@@ -18,7 +18,7 @@ public class Joke {
     private String type;//image图片 text文本 video视频
     private String thumbanil;
     private String video;
-    private String image;
+    private String images;
     private Integer up;
     private Integer down;
     private Integer forwoard;
@@ -76,12 +76,12 @@ public class Joke {
         this.video = video;
     }
 
-    public String getImage() {
-        return image;
+    public String getImages() {
+        return images;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImages(String images) {
+        this.images = images;
     }
 
     public Integer getUp() {

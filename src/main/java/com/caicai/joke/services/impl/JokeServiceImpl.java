@@ -37,7 +37,7 @@ public class JokeServiceImpl implements JokeService {
             e.printStackTrace();
         }
         if("image".equals(type)){
-            if(!HttpUtils.exist(joke.getImage())){
+            if(!HttpUtils.exist(joke.getImages())){
                 System.out.println("图片url无法访问");
             }
         }
