@@ -330,12 +330,16 @@
                     $("#content").html(data.text);
                     if(data.top_comments_content!=null&&data.top_comments_content!=""){
                         $("#top_comments_content").html("神评论："+data.top_comments_content);
+                    }else{
+                        $("#top_comments_content").html("");
                     }
                 }
                 if(data.type=="image"){
                     $("#content").html("<img src='"+data.images+"'>");
                     if(data.top_comments_content!=null&&data.top_comments_content!=""){
                         $("#top_comments_content").html("神评论："+data.top_comments_content);
+                    }else{
+                        $("#top_comments_content").html("");
                     }
                 }
             }

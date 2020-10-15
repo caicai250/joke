@@ -38,7 +38,7 @@ public class JokeServiceImpl implements JokeService {
         }
         if("image".equals(type)){
             if(!HttpUtils.exist(joke.getImages())){
-                System.out.println("图片url无法访问");
+                joke = getJoke(type);
             }
         }
         if("video".equals(type)){
